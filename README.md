@@ -13,9 +13,10 @@ A small macOS menu-bar app that plays looping videos as your desktop wallpaper.
 - Lock screen shows a still frame of the video (macOS can't play video on the lock screen)
 
 ## Install
-1. Download `Live-Wallpaper-…-macOS.zip` from the release, unzip it and drag **Live Wallpaper** to Applications.
-2. The app isn't notarized by Apple, so the first launch is blocked. Open **System Settings → Privacy & Security** and click **Open Anyway**. If macOS says the app is damaged, run `xattr -dr com.apple.quarantine "/Applications/Live Wallpaper.app"` once.
-3. Put your videos in `~/Documents/wallpapers` (or choose another folder in Settings) and allow access to the Documents folder when asked. You can also drop `.mp4`, `.mov` or `.m4v` files onto the Library tab.
+1. Download `Live-Wallpaper-….dmg` from the release and open it. Drag **Live Wallpaper** onto the **Applications** folder in the window that appears.
+2. Eject the disk image and open Live Wallpaper from Applications.
+3. The first launch is blocked because the app isn't notarized by Apple. Click **Done**, open **System Settings → Privacy & Security**, scroll down and click **Open Anyway**. You only need to do this once.
+4. Put your videos in `~/Documents/wallpapers` (or choose another folder in Settings) and click **Allow** when it asks for access to the Documents folder. You can also drop `.mp4`, `.mov` or `.m4v` files onto the Library tab.
 
 The release also has an optional `Wallpapers.zip` with 20 videos to start with.
 
