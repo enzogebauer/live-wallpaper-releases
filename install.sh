@@ -15,7 +15,9 @@ DMG_SHA256="8f826b544022756f251c531a9eebaf4dc65499bcd8fe168e7049d0a0393d5c7a"
 WALLPAPERS_SHA256="99452bdf361e7a0f66181fe2a951ad770821133badf7bd8859c921939f2411e8"
 APP_NAME="Live Wallpaper.app"
 INSTALL_DIR="${INSTALL_DIR:-/Applications}"
-DOCS_DIR="${DOCS_DIR:-$HOME/Documents}"
+# Movies isn't one of the folders macOS protects, so neither this script nor the app triggers a
+# permission prompt. (Documents, Desktop and Downloads are protected.)
+VIDEOS_DIR="${VIDEOS_DIR:-$HOME/Movies/Live Wallpaper}"
 BASE="https://github.com/$REPO/releases/download/v$VERSION"
 
 WALLPAPERS=0
@@ -53,17 +55,26 @@ rm -rf "$INSTALL_DIR/$APP_NAME"
 cp -R "$MOUNT/$APP_NAME" "$INSTALL_DIR/"
 xattr -dr com.apple.quarantine "$INSTALL_DIR/$APP_NAME" 2>/dev/null || true
 
+mkdir -p "$VIDEOS_DIR"
+
 if [ "$WALLPAPERS" = "1" ]; then
   say "Downloading the wallpapers (about 900 MB, this takes a few minutes)"
   curl -fL --progress-bar -o "$TMP/Wallpapers.zip" "$BASE/Wallpapers.zip"
   echo "$WALLPAPERS_SHA256  $TMP/Wallpapers.zip" | shasum -a 256 -c - >/dev/null || die "The wallpapers download is corrupted. The app is installed; the videos are not."
-  mkdir -p "$DOCS_DIR"
-  unzip -n -q "$TMP/Wallpapers.zip" -d "$DOCS_DIR"      # never overwrites files you already have
-  say "Wallpapers are in $DOCS_DIR/wallpapers"
+  unzip -q "$TMP/Wallpapers.zip" -d "$TMP/videos"
+  for f in "$TMP/videos/wallpapers/"*.mp4; do
+    [ -e "$VIDEOS_DIR/$(basename "$f")" ] || mv "$f" "$VIDEOS_DIR/"     # never overwrites a file you already have
+  done
+  say "Wallpapers are in $VIDEOS_DIR"
+fi
+
+# Point the app at that folder, unless you already chose one.
+if [ -z "${NO_DEFAULTS:-}" ] && ! defaults read dev.local.livewallpaper folderPath >/dev/null 2>&1; then
+  defaults write dev.local.livewallpaper folderPath "$VIDEOS_DIR"
 fi
 
 say "Done."
 if [ -z "${NO_OPEN:-}" ]; then
   open "$INSTALL_DIR/$APP_NAME"
-  echo "If macOS asks for access to your Documents folder, click Allow."
+  echo "Your videos folder: $VIDEOS_DIR  (you can also drop videos onto the Library tab)"
 fi
