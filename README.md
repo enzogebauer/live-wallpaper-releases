@@ -24,10 +24,10 @@ curl -fsSL https://raw.githubusercontent.com/enzogebauer/live-wallpaper-releases
 To also download the 20 wallpaper videos (about 900 MB), use this one instead:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/enzogebauer/live-wallpaper-releases/main/install.sh | bash -s -- --wallpapers
+curl -fsSL https://raw.githubusercontent.com/enzogebauer/live-wallpaper-releases/main/install-with-wallpapers.sh | bash
 ```
 
-It installs Live Wallpaper into Applications and opens it. If macOS asks for access to your Documents folder, click **Allow**. This route avoids the "Apple could not verify…" warning that appears when you download the app in a browser, because that warning only applies to files downloaded by a browser. You can read the script before running it: [install.sh](install.sh).
+It installs Live Wallpaper into Applications and opens it. If macOS asks for access to your Documents folder, click **Allow**. This route avoids the "Apple could not verify…" warning that appears when you download the app in a browser, because that warning only applies to files downloaded by a browser. You can read the scripts before running them: [install.sh](install.sh) and [install-with-wallpapers.sh](install-with-wallpapers.sh).
 
 ### The drag-and-drop way
 1. Download `Live-Wallpaper-….dmg` from the release and open it. Drag **Live Wallpaper** onto the **Applications** folder in the window that appears.
