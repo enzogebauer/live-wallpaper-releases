@@ -39,7 +39,7 @@ It installs Live Wallpaper into Applications and opens it. This route avoids the
 3. The first launch is blocked because the app isn't notarized by Apple. Click **Done**, open **System Settings → Privacy & Security**, scroll down and click **Open Anyway**. You only need to do this once.
 4. Add videos by dropping `.mp4`, `.mov` or `.m4v` files onto the app's Library tab, or pick a folder in **Settings → General → Video folder**. Tip: choose a folder outside Documents, Desktop and Downloads (for example `~/Movies`), or macOS will ask permission to read it.
 
-The release also has an optional `Wallpapers.zip` with 20 videos to start with. Unzip it and drop the videos onto the Library tab.
+The optional `Wallpapers.zip` (20 videos to start with) is attached to the [0.0.2 release](../../releases/tag/v0.0.2). Unzip it and drop the videos onto the Library tab. The Terminal command above fetches it for you.
 
 Requires macOS 13 or later, Apple Silicon or Intel.
 
