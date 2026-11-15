@@ -9,9 +9,9 @@
 set -euo pipefail
 
 REPO="enzogebauer/live-wallpaper-releases"
-VERSION="0.0.2"
+VERSION="0.0.3"
 DMG="Live-Wallpaper-$VERSION.dmg"
-DMG_SHA256="8f826b544022756f251c531a9eebaf4dc65499bcd8fe168e7049d0a0393d5c7a"
+DMG_SHA256="d9c77a85ffd9ce761a9a3ee76aea48aeebfe87f2b011692a0cf848c3c776af9f"
 WALLPAPERS_SHA256="99452bdf361e7a0f66181fe2a951ad770821133badf7bd8859c921939f2411e8"
 APP_NAME="Live Wallpaper.app"
 INSTALL_DIR="${INSTALL_DIR:-/Applications}"
@@ -19,6 +19,8 @@ INSTALL_DIR="${INSTALL_DIR:-/Applications}"
 # permission prompt. (Documents, Desktop and Downloads are protected.)
 VIDEOS_DIR="${VIDEOS_DIR:-$HOME/Movies/Live Wallpaper}"
 BASE="https://github.com/$REPO/releases/download/v$VERSION"
+# The videos are attached to the 0.0.2 release (they haven't changed since).
+WALLPAPERS_BASE="https://github.com/$REPO/releases/download/v0.0.2"
 
 WALLPAPERS=0
 for arg in "$@"; do
@@ -59,7 +61,7 @@ mkdir -p "$VIDEOS_DIR"
 
 if [ "$WALLPAPERS" = "1" ]; then
   say "Downloading the wallpapers (about 900 MB, this takes a few minutes)"
-  curl -fL --progress-bar -o "$TMP/Wallpapers.zip" "$BASE/Wallpapers.zip"
+  curl -fL --progress-bar -o "$TMP/Wallpapers.zip" "$WALLPAPERS_BASE/Wallpapers.zip"
   echo "$WALLPAPERS_SHA256  $TMP/Wallpapers.zip" | shasum -a 256 -c - >/dev/null || die "The wallpapers download is corrupted. The app is installed; the videos are not."
   unzip -q "$TMP/Wallpapers.zip" -d "$TMP/videos"
   for f in "$TMP/videos/wallpapers/"*.mp4; do
